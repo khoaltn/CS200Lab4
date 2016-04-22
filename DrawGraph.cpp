@@ -46,18 +46,18 @@ DrawGraph::DrawGraph(int n) {
 
 	// Adjacency matrix
 	vector<int> tmp;
-	for (int j = 0; j < n; j++) {
+	for (int j = 0; j < vertices; j++) {
 		tmp.push_back(0);
 	}
 
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < vertices; i++) {
 		adjMat.push_back(tmp);
 	}
 
 	// Adjacency list
 	for (int i = 0; i < vertices; i++) {
-		vector<int> tmp;
-		adjList.push_back(tmp);
+		vector<int> tmp1;
+		adjList.push_back(tmp1);
 	}
 }
 
