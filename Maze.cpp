@@ -37,12 +37,12 @@ int Maze::selectWall(int row,int col) {
 
     else if (row == NUM_CELLS_PER_SIDE-1) {
 		 // either gives -1 (invalid) or 0 (east wall)
-        int choice = ((rand() % 2) -1) ;
+        int choice = rand() % 2 ;
         return choice == 1 ? cellID+1 : -1 ;
     }
 	
     else if ( col == NUM_CELLS_PER_SIDE-1) {
-        int choice =  (rand()%2);
+        int choice =  (rand() % 2);
         return choice == 1? cellID + NUM_CELLS_PER_SIDE : -1;
     }
 
@@ -56,7 +56,7 @@ int Maze::selectWall(int row,int col) {
     }
 
 //    return -1;	//have to return something for last row, last column (no connection)
-}
+} 
 
 //performs the union find algorithm - cells with adjacent walls are placed in the
 //same equivalence class. This continues until a single class remains containing start
@@ -91,20 +91,27 @@ void Maze::unionFind() {
 	while (classRep[0] != classRep[n * n - 1]) {
 		int row = rand() % n;
 		int col = rand() % n;
+	// for (int row = 0; row < n; row++)
+	// 	for (int col = 0; col < n; col++) {
+			int neighbourCellID = selectWall(row, col);
+			int cellID = row * NUM_CELLS_PER_SIDE + col;
+			if ( neighbourCellID == -1 ||
+				 classRep[cellID] == classRep[neighbourCellID]) continue;
 
-		int neighbourCellID = selectWall(row, col);
-		if ( neighbourCellID == -1) continue;
-		int cellID = row * NUM_CELLS_PER_SIDE + col;
 
-		myGraph -> addEdge(cellID, neighbourCellID);
-		equivalenceClasses[cellID][neighbourCellID] = true;
-		equivalenceClasses[neighbourCellID][cellID] = true;
+			myGraph -> addEdge(cellID, neighbourCellID);
+			equivalenceClasses[cellID][neighbourCellID] = true;
+			equivalenceClasses[neighbourCellID][cellID] = true;
 
-		for (int i = 0; i < n * n; i++) {
-			if (equivalenceClasses[neighbourCellID][i]) {
-				classRep[i] = classRep[cellID];
+			for (int i = 0; i < n * n; i++) {
+				if (equivalenceClasses[neighbourCellID][i]) {
+					classRep[i] = classRep[cellID];
+				}
 			}
 		}
+
+	for (int i = 0; i < n * n; i++) {
+
 	}
 	
 }
