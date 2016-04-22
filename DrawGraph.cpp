@@ -42,22 +42,22 @@ void DrawGraph::printGraph2(){
 //Construct an empty inital adjacency matrix
 DrawGraph::DrawGraph(int n) {
 	// Num vertices 
-	vertices = n;
+	vertices = n*n;
 
 	// Adjacency matrix
 	vector<int> tmp;
-	for (int j = 0; j < n; j++) {
+	for (int j = 0; j < vertices; j++) {
 		tmp.push_back(0);
 	}
 
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < vertices; i++) {
 		adjMat.push_back(tmp);
 	}
 
 	// Adjacency list
-	for (int i = 0; i < n * n; i++) {
-		vector<int> tmp;
-		adjList.push_back(tmp);
+	for (int i = 0; i < vertices; i++) {
+		vector<int> tmp1;
+		adjList.push_back(tmp1);
 	}
 }
 
@@ -95,7 +95,7 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     
     // return S;
 	// ------------------------------ AVI ------------------------------
-stack<int> S;
+    stack<int> S;
     
     // Mark all the vertices as not visited
     bool *visited = new bool[vertices];// a bool of all the verticies
