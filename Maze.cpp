@@ -27,46 +27,32 @@ Maze::~Maze(){
 }
 
 //randomly select an east or south wall
-int Maze::selectWall(int row,int col)
-{
-    /*
-     
-     -1 = invalid
-     0  = east
-     1  = south
+int Maze::selectWall(int row,int col) {
+	 // This gives us current cell vertex number
+    int cellID = row * NUM_CELLS_PER_SIDE + col;
+    
+    if ( (row == NUM_CELLS_PER_SIDE-1) && (col == NUM_CELLS_PER_SIDE-1)) {
+        return -1;	//Error code
+    }
 
-     */
-    
-    int cellID = row*NUM_CELLS_PER_SIDE + col; // This gives us current cell vertex number
-    
-    
-    if ( (row == NUM_CELLS_PER_SIDE-1) && (col == NUM_CELLS_PER_SIDE-1))
-    {
-        //no deletions
-        return -1;	//have to return something for last row, last column (no connection)
-        
+    else if (row == NUM_CELLS_PER_SIDE-1) {
+		 // either gives -1 (invalid) or 0 (east wall)
+        int choice = ((rand() % 2) -1) ;
+        return choice == 1 ? cellID+1 : -1 ;
     }
-    else if (row == NUM_CELLS_PER_SIDE-1)
-    {
-        int choice = ((rand() % 2) -1) ; // either gives -1 (invalid) or 0 (east wall)
-        return choice == 1 ? cellID+1: -1 ;
-    }
-    else if ( col == NUM_CELLS_PER_SIDE-1)
-    {
-    
+	
+    else if ( col == NUM_CELLS_PER_SIDE-1) {
         int choice =  (rand()%2);
         return choice == 1? cellID + NUM_CELLS_PER_SIDE : -1;
-    
-    
-    }else{
-        
+    }
+
+	else {
         int choice = rand()%2;  //// no invalid choice,,  just east or south
-        return choice == 1? cellID+1: cellID + NUM_CELLS_PER_SIDE;
+        return choice == 1 ? cellID + 1 : cellID + NUM_CELLS_PER_SIDE;
         /* choice can be either 1 or 0.
          when choice is 1, east
          when choice is 0, south.
          */
-    
     }
 
 //    return -1;	//have to return something for last row, last column (no connection)
@@ -75,38 +61,69 @@ int Maze::selectWall(int row,int col)
 //performs the union find algorithm - cells with adjacent walls are placed in the
 //same equivalence class. This continues until a single class remains containing start
 //and finish cells => maze has a path from start to finish.
-void Maze::unionFind()
-{
+void Maze::unionFind() {
 
-	// -------------------------------
-	    for (int i = 0; i < NUM_CELLS_PER_SIDE ; i++)
-    {
-        for (int j = 0; j < NUM_CELLS_PER_SIDE; j++)
-        {
-            int neighbourCellID = selectWall(i, j);
+	// // -------------------------------
+	//     for (int i = 0; i < NUM_CELLS_PER_SIDE ; i++) {
+	// 		for (int j = 0; j < NUM_CELLS_PER_SIDE; j++) {
+	// 			int neighbourCellID = selectWall(i, j);
 			
-            if ( neighbourCellID == -1)
-                continue;
+	// 			if ( neighbourCellID == -1)
+	// 				continue;
 
-			int cellID = i * NUM_CELLS_PER_SIDE + j;
+	// 			int cellID = i * NUM_CELLS_PER_SIDE + j;
             
-            myGraph -> addEdge(cellID, neighbourCellID);
+	// 			myGraph -> addEdge(cellID, neighbourCellID);
             
             
-        }
-    }
+	// 		}
+	// 	}
 
-		    myGraph->printGraph();
-	cout << "---------------" << endl;
-	myGraph->printGraph2();
-	cout << "---------------" << endl;
+	// 	myGraph->printGraph();
+	// 	cout << "---------------" << endl;
+	// 	myGraph->printGraph2();
+	// 	cout << "---------------" << endl;
 
+	// Khoa ------------------------------
+	int n = NUM_CELLS_PER_SIDE;
+	srand(time(NULL));
+	
+	while (classRep[0] != classRep[n * n - 1]) {
+		int row = rand() % n;
+		int col = rand() % n;
+
+		int neighbourCellID = selectWall(row, col);
+		if ( neighbourCellID == -1) continue;
+		int cellID = row * NUM_CELLS_PER_SIDE + col;
+
+		myGraph -> addEdge(cellID, neighbourCellID);
+		equivalenceClasses[cellID][neighbourCellID] = true;
+		equivalenceClasses[neighbourCellID][cellID] = true;
+
+		for (int i = 0; i < n * n; i++) {
+			if (equivalenceClasses[neighbourCellID][i]) {
+				classRep[i] = classRep[cellID];
+			}
+		}
+	}
+	
 }
 
 //Constructs initial equivalence classes, each vertex in its own class
-void Maze::buildEquivClasses()
-{
+void Maze::buildEquivClasses() {
+	// Bool matrix of EquivClasses
+	int n = NUM_CELLS_PER_SIDE;
+	vector<bool> row;
 
+	for (int i = 0; i < n * n; i++) {
+		row.push_back(false);
+		classRep[i] = i; 	// Array of Class Representatives for the vertices
+	}
+
+	for (int i = 0; i < n * n; i++) {
+		equivalenceClasses.push_back(row);
+		equivalenceClasses[i][i] = true;
+	}
 }
 
 //Draws initial maze with no walls removed
