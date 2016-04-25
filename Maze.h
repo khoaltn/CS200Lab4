@@ -64,6 +64,9 @@ class Maze {
         vector<vector<bool> > equivalenceClasses;	//stores equiv. classes
         int *whichClass;				  //stores characteristic of each class
         stack<int> dfS;								//stack holds path thru maze
+
+		// Khoa's stuff
+		int classRep[NUM_CELLS_PER_SIDE * NUM_CELLS_PER_SIDE];
 };
 
 #endif /* Maze_h */

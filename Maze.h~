@@ -31,7 +31,7 @@ using namespace std;
 
 class Maze {
     public:
-        const int NUM_CELLS_PER_SIDE = 40;
+//        const int NUM_CELLS_PER_SIDE = 40;
         const int CELL_WIDTH = 10;
         const int OFFSET = 50;
         const int START_CELL = 0;
@@ -62,7 +62,7 @@ class Maze {
     
         DrawGraph *myGraph;							//graph holding adjacency info
         vector<vector<bool> > equivalenceClasses;	//stores equiv. classes
-        int *whichClass;						//stores characteristic of each class
+        int *whichClass;				  //stores characteristic of each class
         stack<int> dfS;								//stack holds path thru maze
 };
 

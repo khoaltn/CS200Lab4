@@ -14,7 +14,7 @@
 #include <stack>
 #include <list>
 
-#define NUM_CELLS_PER_SIDE 30
+#define NUM_CELLS_PER_SIDE 5
 
 using namespace std;
 
@@ -34,7 +34,7 @@ class DrawGraph{
 		
         //returns a copy of the adjacency list
         vector<vector<int> > get();
-        void SearchGraph();
+        void SearchGraph(); // build udGraph
 		
         //Perform the depth-first search of the graph
         stack<int> depthFirstSearch(int start, int end);

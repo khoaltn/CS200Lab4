@@ -42,6 +42,7 @@ void DrawGraph::printGraph2(){
 //Construct an empty inital adjacency matrix
 DrawGraph::DrawGraph(int n) {
 	// Num vertices 
+<<<<<<< HEAD
 	vertices = n*n;
 
 	// Adjacency matrix
@@ -51,13 +52,30 @@ DrawGraph::DrawGraph(int n) {
 	}
 
 	for (int i = 0; i < vertices; i++) {
+=======
+	vertices = n * n;
+
+	// Adjacency matrix
+	vector<int> tmp;
+	for (int j = 0; j < n * n; j++) {
+		tmp.push_back(0);
+	}
+
+	for (int i = 0; i < n * n; i++) {
+>>>>>>> Khoa
 		adjMat.push_back(tmp);
 	}
 
 	// Adjacency list
+<<<<<<< HEAD
 	for (int i = 0; i < vertices; i++) {
 		vector<int> tmp1;
 		adjList.push_back(tmp1);
+=======
+	vector<int> tmp2;
+	for (int i = 0; i < n * n; i++) {
+		adjList.push_back(tmp2);
+>>>>>>> Khoa
 	}
 }
 
@@ -69,9 +87,11 @@ vector<vector<int> > DrawGraph:: get()
 
 //Add a graph edge (remove wall on a cell)
 void DrawGraph::addEdge(int v1, int v2) {
-	if (0 <= v1 && v1 < (vertices * vertices) && 0 <= v2
-		&& v2 < (vertices * vertices) // v1, v2 are valid
+	if (0 <= v1 && v1 < (vertices * vertices)
+		&& 0 <= v2 && v2 < (vertices * vertices) // v1, v2 are valid
 		&& adjMat[v1][v2] == 0) { // v1, v2 are not already neighbors
+		// Find row and column indices of v1 and v2
+		
 		
 		// Fix adjacency matrix
 		adjMat[v1][v2] = 1;
@@ -95,13 +115,18 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     
     // return S;
 	// ------------------------------ AVI ------------------------------
+<<<<<<< HEAD
     stack<int> S;
+=======
+	stack<int> S;
+>>>>>>> Khoa
     
     // Mark all the vertices as not visited
     bool *visited = new bool[vertices];// a bool of all the verticies
-    for (int i = 0; i < vertices; i++)
+
+    for (int i = 0; i < vertices; i++) {
         visited[i] = false;
-    
+	}
     
     stack<int> stack;
     stack.push(start);
