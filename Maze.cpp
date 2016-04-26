@@ -32,7 +32,7 @@ int Maze::selectWall(int row,int col) {
     int cellID = row * NUM_CELLS_PER_SIDE + col;
     
     if ( (row == NUM_CELLS_PER_SIDE-1) && (col == NUM_CELLS_PER_SIDE-1)) {
-        return -1;	//Error code
+        return -1;	//Error code bc this is the finish cell
     }
 
     else if (row == NUM_CELLS_PER_SIDE-1) {
@@ -42,8 +42,8 @@ int Maze::selectWall(int row,int col) {
     }
 	
     else if ( col == NUM_CELLS_PER_SIDE-1) {
-        int choice =  (rand() % 2);
-        return choice == 1? cellID + NUM_CELLS_PER_SIDE : -1;
+        int choice =  rand() % 2;
+        return choice == 1 ? cellID + NUM_CELLS_PER_SIDE : -1;
     }
 
 	else {
@@ -62,58 +62,34 @@ int Maze::selectWall(int row,int col) {
 //same equivalence class. This continues until a single class remains containing start
 //and finish cells => maze has a path from start to finish.
 void Maze::unionFind() {
-
-	// // -------------------------------
-	//     for (int i = 0; i < NUM_CELLS_PER_SIDE ; i++) {
-	// 		for (int j = 0; j < NUM_CELLS_PER_SIDE; j++) {
-	// 			int neighbourCellID = selectWall(i, j);
-			
-	// 			if ( neighbourCellID == -1)
-	// 				continue;
-
-	// 			int cellID = i * NUM_CELLS_PER_SIDE + j;
-            
-	// 			myGraph -> addEdge(cellID, neighbourCellID);
-            
-            
-	// 		}
-	// 	}
-
-	// 	myGraph->printGraph();
-	// 	cout << "---------------" << endl;
-	// 	myGraph->printGraph2();
-	// 	cout << "---------------" << endl;
-
-	// Khoa ------------------------------
 	int n = NUM_CELLS_PER_SIDE;
 	srand(time(NULL));
 	
 	while (classRep[0] != classRep[n * n - 1]) {
 		int row = rand() % n;
 		int col = rand() % n;
-	// for (int row = 0; row < n; row++)
-	// 	for (int col = 0; col < n; col++) {
-			int neighbourCellID = selectWall(row, col);
-			int cellID = row * NUM_CELLS_PER_SIDE + col;
-			if ( neighbourCellID == -1 ||
-				 classRep[cellID] == classRep[neighbourCellID]) continue;
+		int neighborID = selectWall(row, col);
+		int cellID = row * NUM_CELLS_PER_SIDE + col;
+		if ( neighborID != -1 && classRep[cellID] != classRep[neighborID]) {
+			myGraph -> addEdge(cellID, neighborID);
 
-
-			myGraph -> addEdge(cellID, neighbourCellID);
-			equivalenceClasses[cellID][neighbourCellID] = true;
-			equivalenceClasses[neighbourCellID][cellID] = true;
-
+			int max = classRep[cellID], min = classRep[neighborID];
+			if (classRep[cellID] < classRep[neighborID]) {
+				max = classRep[neighborID];
+				min = classRep[cellID];
+			}
+				
 			for (int i = 0; i < n * n; i++) {
-				if (equivalenceClasses[neighbourCellID][i]) {
-					classRep[i] = classRep[cellID];
+				if (equivalenceClasses[max][i] == true) {
+					equivalenceClasses[min][i] = true;
+					classRep[i] = min;
 				}
 			}
+												
+			equivalenceClasses[max].erase(equivalenceClasses[max].begin(),
+										  equivalenceClasses[max].end());
 		}
-
-	for (int i = 0; i < n * n; i++) {
-
 	}
-	
 }
 
 //Constructs initial equivalence classes, each vertex in its own class
