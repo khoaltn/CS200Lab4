@@ -1,10 +1,18 @@
-//
-//  DrawGraph.h
-//  Class for creating adjacency matrix for maze
-//
-//  Created by Denise Byrnes on 3/13/16.
-//  Copyright © 2016 Denise Byrnes. All rights reserved.
-//
+/********************************************************
+ CS200 Lab 4
+ 
+ Draw-Graph Header File
+ 
+ Writen by  : Denise Byrnes
+ Modified by: Khoa Ngyuen, Eifu Tomita, Avi Vajpeyi
+ 
+ 
+ Purpose    : Here we declare the various functions that
+ are required to create the graphs, and the functions that
+ traverse the biderectional list to create the path of the
+ maze.
+ 
+ ********************************************************/
 
 #ifndef DrawGraph_h
 #define DrawGraph_h

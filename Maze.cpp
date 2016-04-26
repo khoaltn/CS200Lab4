@@ -1,11 +1,17 @@
-//
-//  Maze.cpp
-//  Maze
-//
-//  Created by Denise Byrnes on 3/13/16.
-//  Copyright © 2016 Denise Byrnes. All rights reserved.
-//
-
+/********************************************************
+CS200 Lab 4
+ 
+                Maze Implementation File
+ 
+ Writen by  : Denise Byrnes
+ Modified by: Khoa Ngyuen, Eifu Tomita, Avi Vajpeyi
+ 
+ 
+ Purpose    : Contains the implementation of the various
+ data structures and functions, like creating the equivalency 
+ lists, and unions, that we need to create the maze.
+ 
+********************************************************/
 
 #include "Maze.h"
 #include <iostream>

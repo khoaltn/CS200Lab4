@@ -1,10 +1,19 @@
-//
-//  DrawGraph.cpp
-//  Maze
-//
-//  Created by Denise Byrnes on 3/13/16.
-//  Copyright © 2016 Denise Byrnes. All rights reserved.
-//
+/********************************************************
+ CS200 Lab 4
+ 
+           Draw-Graph Implementation File
+ 
+ Writen by  : Denise Byrnes
+ Modified by: Khoa Ngyuen, Eifu Tomita, Avi Vajpeyi
+ 
+ 
+ Purpose    : Here we imlement the various functions that 
+ are required to create the graphs, and the functions that 
+ traverse the biderectional list to create the path of the 
+ maze.
+ 
+ ********************************************************/
+
 
 #include "DrawGraph.h"
 #include <iostream>

@@ -1,10 +1,17 @@
-//
-//  Maze.h
-//  Maze
-//
-//  Created by Denise Byrnes on 3/13/16.
-//  Maze class: creates a 10 X10 maze
-//
+/********************************************************
+ CS200 Lab 4
+ 
+                    Maze Header File
+ 
+ Writen by  : Denise Byrnes
+ Modified by: Khoa Ngyuen, Eifu Tomita, Avi Vajpeyi
+ 
+ 
+ Purpose    : Contains the varous data structure
+ declarations and function prototyes that we need to 
+ create the maze.
+ 
+ ********************************************************/
 
 #ifndef Maze_h
 #define Maze_h
