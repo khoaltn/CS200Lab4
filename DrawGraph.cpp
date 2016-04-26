@@ -42,40 +42,28 @@ void DrawGraph::printGraph2(){
 //Construct an empty inital adjacency matrix
 DrawGraph::DrawGraph(int n) {
 	// Num vertices 
-<<<<<<< HEAD
+
+    
 	vertices = n*n;
 
 	// Adjacency matrix
 	vector<int> tmp;
-	for (int j = 0; j < vertices; j++) {
+	for (int j = 0; j < vertices; j++)
+    {
 		tmp.push_back(0);
 	}
 
-	for (int i = 0; i < vertices; i++) {
-=======
-	vertices = n * n;
-
-	// Adjacency matrix
-	vector<int> tmp;
-	for (int j = 0; j < n * n; j++) {
-		tmp.push_back(0);
-	}
-
-	for (int i = 0; i < n * n; i++) {
->>>>>>> Khoa
+	for (int i = 0; i < vertices; i++)
+    {
 		adjMat.push_back(tmp);
 	}
 
 	// Adjacency list
-<<<<<<< HEAD
-	for (int i = 0; i < vertices; i++) {
-		vector<int> tmp1;
-		adjList.push_back(tmp1);
-=======
+
 	vector<int> tmp2;
-	for (int i = 0; i < n * n; i++) {
+	for (int i = 0; i < vertices; i++) {
 		adjList.push_back(tmp2);
->>>>>>> Khoa
+
 	}
 }
 
@@ -115,11 +103,9 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     
     // return S;
 	// ------------------------------ AVI ------------------------------
-<<<<<<< HEAD
-    stack<int> S;
-=======
+
 	stack<int> S;
->>>>>>> Khoa
+
     
     // Mark all the vertices as not visited
     bool *visited = new bool[vertices];// a bool of all the verticies
