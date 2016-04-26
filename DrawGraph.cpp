@@ -94,6 +94,10 @@ void DrawGraph::addEdge(int v1, int v2)
 	}
 }
 
+
+
+
+
 //Perform depth- first search of graph
 stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     
@@ -101,29 +105,35 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     // SearchGraph();
     
     // return S;
-	
-	stack<int> saveStack;
-	SearchGraph();
+    
+    stack<int> saveStack;
+    SearchGraph();
     
     // Mark all the vertices as not visited
     bool *visited = new bool[vertices];// a bool of all the verticies
-
+    
     for (int i = 0; i < vertices; i++) {
         visited[i] = false;
-	}
+    }
     
     stack<int> tempStack;
     tempStack.push(start);
     
     while(!tempStack.empty())
     {
+        
+        
         int top = tempStack.top();
         tempStack.pop();
         
+        if ( top == end) {
+            saveStack.push(top);
+            break;
+        }
+        
         // what is the int start = 0?
         saveStack.push(top); // saving the value visitied
-      
-        if ( top == end) break;
+        
         
         if (visited[top] != true)
         {
@@ -134,67 +144,58 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
             // use uD graph here instead of adjList
             for(vector<int>::iterator i = udGraph[top].begin(); i != udGraph[top].end(); i++)
             {
-                
-                if ( visited[*i] == false)
+                int count = 0;
+                if (visited[*i] == false)
                 {
+                    count++;
                     tempStack.push(*i);
                 }
-            }
-        
-        
-        
-        }
-    
-        
-    }
-    
-    
-    // need to delete non adjacent elements as we put values into new stack
-    
-    	stack<int> returnStack;
-    
-    // we know top of save stack -> end
-    // need to push end onto the returnstack
-//    returnStack.push(saveStack.top());
-
-    
-    int previousVal = saveStack.top();
-    returnStack.push(saveStack.top()); // the end in returnstack
-    
-    for (int i = 0; i < saveStack.size(); i++)
-    {
-        for(vector<int>::iterator i = udGraph[previousVal].begin(); i != udGraph[previousVal].end(); i++)
-        {
-
-	  if (visited[*i] == false) {
-	    tempStack.push(*i);
-	  }
-
                 
-	  if (*i == saveStack.top())
-            {
-	      returnStack.push(saveStack.top());
-	      previousVal = saveStack.top();
+//                if (tempStack.top() != end)
+//                {
+//                    for (int i = 0; i < count-1; i ++)
+//                    {
+//                        saveStack.pop();
+//                    }
+//                }
+                
             }
-        
         }
-       
+        
     }
+    // problem with this is that we are saving even the places that we done eed to visit
+    // need to edit so that we check if with the graph, we are reaching the end from the tempStackPush
+    stack<int> returnStack;
+    returnStack.push(saveStack.top());
+    int prev = saveStack.top();
+    saveStack.pop();
+    
+    while(!saveStack.empty()){
+        int temp_saveStack = saveStack.top();
+        saveStack.pop();
+        for(vector<int>::iterator i = udGraph[prev].begin(); i != udGraph[prev].end(); i++){
+            if(temp_saveStack == *i){
+                returnStack.push(temp_saveStack);
+                prev = temp_saveStack;
+                break;
+            }
+        }
+        
+    }
+    
     
     stack<int> returnStackCorrected;
-    for(int i = 0; i<returnStack.size(); i++)
-      {
+    while (!returnStack.empty()) {
         returnStackCorrected.push(returnStack.top());
         returnStack.pop();
-
-      }
+    }
+   
     
     //reversing the returnStack
     
     
     return returnStackCorrected;
 }
-
 
 
 //Constructs an Undirected Bidirectional Graph based on adjacency list

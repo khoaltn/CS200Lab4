@@ -14,7 +14,7 @@
 #include <stack>
 #include <list>
 
-#define NUM_CELLS_PER_SIDE 8
+#define NUM_CELLS_PER_SIDE 40
 
 using namespace std;
 
