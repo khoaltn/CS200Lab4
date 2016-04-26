@@ -24,7 +24,7 @@ Maze::Maze() {
     
     srand (time(NULL));
     buildEquivClasses();							//initial set of classes
-    unionFind();									//condense classes - used to remove maze walls
+    unionFind();			   //condense classes - used to remove maze walls
 }
 
 //Maze destructor
@@ -33,6 +33,7 @@ Maze::~Maze(){
 }
 
 //randomly select an east or south wall
+// return the ID of the neighbor with whom the wall is deleted
 int Maze::selectWall(int row,int col) {
 	 // This gives us current cell vertex number
     int cellID = row * NUM_CELLS_PER_SIDE + col;
@@ -60,8 +61,6 @@ int Maze::selectWall(int row,int col) {
          when choice is 0, south.
          */
     }
-
-//    return -1;	//have to return something for last row, last column (no connection)
 } 
 
 //performs the union find algorithm - cells with adjacent walls are placed in the

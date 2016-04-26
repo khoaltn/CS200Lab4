@@ -49,8 +49,6 @@ void DrawGraph::printGraph2(){
 //Construct an empty inital adjacency matrix
 DrawGraph::DrawGraph(int n) {
 	// Num vertices 
-
-    
 	vertices = n*n;
 
 	// Adjacency matrix
@@ -66,11 +64,9 @@ DrawGraph::DrawGraph(int n) {
 	}
 
 	// Adjacency list
-
 	vector<int> tmp2;
 	for (int i = 0; i < vertices; i++) {
 		adjList.push_back(tmp2);
-
 	}
 }
 
@@ -82,7 +78,6 @@ vector<vector<int> > DrawGraph:: get()
 
 //Add a graph edge (remove wall on a cell)
 void DrawGraph::addEdge(int v1, int v2)
-
 {
 	if (0 <= v1 && v1 < (vertices * vertices)
 		&& 0 <= v2 && v2 < (vertices * vertices) // v1, v2 are valid
@@ -103,18 +98,8 @@ void DrawGraph::addEdge(int v1, int v2)
 	}
 }
 
-
-
-
-
-//Perform depth- first search of graph
+//Perform depth- first search of udgraph
 stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
-    
-    // stack<int> S;
-    // SearchGraph();
-    
-    // return S;
-    
     stack<int> saveStack;
     SearchGraph();
     
@@ -130,8 +115,6 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     
     while(!tempStack.empty())
     {
-        
-        
         int top = tempStack.top();
         tempStack.pop();
         
@@ -143,12 +126,10 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
         // what is the int start = 0?
         saveStack.push(top); // saving the value visitied
         
-        
         if (visited[top] != true)
         {
             // if not visited, push the value onto the stack of the entire list
             visited[top] = true;
-            
             
             // use uD graph here instead of adjList
             for(vector<int>::iterator i = udGraph[top].begin(); i != udGraph[top].end(); i++)
@@ -159,21 +140,12 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
                     count++;
                     tempStack.push(*i);
                 }
-                
-//                if (tempStack.top() != end)
-//                {
-//                    for (int i = 0; i < count-1; i ++)
-//                    {
-//                        saveStack.pop();
-//                    }
-//                }
-                
             }
         }
-        
     }
-    // problem with this is that we are saving even the places that we done eed to visit
-    // need to edit so that we check if with the graph, we are reaching the end from the tempStackPush
+	
+    // delete the places that we don't  need to visit
+    // check if with the graph, we are reaching the end from the tempStackPush
     stack<int> returnStack;
     returnStack.push(saveStack.top());
     int prev = saveStack.top();
@@ -189,20 +161,15 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
                 break;
             }
         }
-        
     }
     
-    
+    //reversing the returnStack    
     stack<int> returnStackCorrected;
     while (!returnStack.empty()) {
         returnStackCorrected.push(returnStack.top());
         returnStack.pop();
     }
-   
-    
-    //reversing the returnStack
-    
-    
+
     return returnStackCorrected;
 }
 
@@ -211,19 +178,15 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
 void DrawGraph::SearchGraph()
 {
     /*
-     We will polulate the udGraph
+     We will populate the udGraph
      
-     int adjList
-     0 -> 1 add the 1-> =0
-     
+     i.e in adjList
+     if 0 -> 1, then add the 1-> =0
      */
-    
-    
     for (int i = 0; i < vertices; i++)
     {
         udGraph.push_back(adjList[i]);
     }
-    
     
     for (int i = 0; i < vertices; i++)
     {
@@ -233,45 +196,6 @@ void DrawGraph::SearchGraph()
             {
                 udGraph[adjList[i][j]].push_back(i);
             }
-            
         }
     }
-    
-    
-    printGraph2();
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
