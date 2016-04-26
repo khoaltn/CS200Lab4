@@ -80,7 +80,6 @@ void DrawGraph::addEdge(int v1, int v2)
 		&& adjMat[v1][v2] == 0) { // v1, v2 are not already neighbors
 		// Find row and column indices of v1 and v2
 		
-		
 		// Fix adjacency matrix
 		adjMat[v1][v2] = 1;
 		adjMat[v2][v1] = 1;
@@ -104,7 +103,7 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
     // return S;
 	
 	stack<int> saveStack;
-
+	SearchGraph();
     
     // Mark all the vertices as not visited
     bool *visited = new bool[vertices];// a bool of all the verticies
@@ -132,13 +131,14 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
             
             
             // use uD graph here instead of adjList
-            for(vector<int>::iterator i = adjList[top].begin(); i != adjList[top].end(); i++)
+            for(vector<int>::iterator i = udGraph[top].begin(); i != udGraph[top].end(); i++)
             {
+				if (visited[*i] == false) {
                     tempStack.push(*i);
+				}
                 
             }
         }
-        
     }
     // problem with this is that we are saving even the places that we done eed to visit
     // need to edit so that we check if with the graph, we are reaching the end from the tempStackPush
@@ -162,7 +162,7 @@ void DrawGraph::SearchGraph()
     
     for (int i = 0; i < vertices; i++)
     {
-        udGraph[i] = adjList[i];
+        udGraph.push_back(adjList[i]);
     }
     
     
@@ -172,7 +172,7 @@ void DrawGraph::SearchGraph()
         {
             if (adjList[i][j] > i)
             {
-                udGraph[j].push_back(i);
+                udGraph[adjList[i][j]].push_back(i);
             }
             
         }
