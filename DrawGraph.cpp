@@ -123,7 +123,8 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
         
         // what is the int start = 0?
         saveStack.push(top); // saving the value visitied
-        
+      
+        if ( top == end) break;
         
         if (visited[top] != true)
         {
@@ -132,18 +133,63 @@ stack<int> DrawGraph ::depthFirstSearch(int start, int end) {
             
             
             // use uD graph here instead of adjList
-            for(vector<int>::iterator i = adjList[top].begin(); i != adjList[top].end(); i++)
+            for(vector<int>::iterator i = udGraph[top].begin(); i != udGraph[top].end(); i++)
             {
-                    tempStack.push(*i);
                 
+                if ( visited[*i] == false)
+                {
+                    tempStack.push(*i);
+                }
             }
+        
+        
+        
         }
+    
         
     }
-    // problem with this is that we are saving even the places that we done eed to visit
-    // need to edit so that we check if with the graph, we are reaching the end from the tempStackPush
     
-    return saveStack;
+    
+    // need to delete non adjacent elements as we put values into new stack
+    
+    	stack<int> returnStack;
+    
+    // we know top of save stack -> end
+    // need to push end onto the returnstack
+//    returnStack.push(saveStack.top());
+
+    
+    int previousVal = saveStack.top();
+    returnStack.push(saveStack.top()); // the end in returnstack
+    
+    for (int i = 0; i < saveStack.size(); i++)
+    {
+        for(vector<int>::iterator i = udGraph[previousVal].begin(); i != udGraph[previousVal].end(); i++)
+        {
+                
+            if (*i == saveStack.top())
+            {
+                returnStack.push(saveStack.top());
+                previousVal = saveStack.top();
+            }
+        
+        }
+        
+        saveStack.pop();
+        
+    }
+    
+    stack<int> returnStackCorrected;
+    for(int i = 0; i<returnStack.size(); i++)
+    {
+        returnStackCorrected.push(returnStack.top());
+        returnStack.pop();
+    }
+    
+    //reversing the returnStack
+    
+    
+    return returnStackCorrected;
 }
 
 
