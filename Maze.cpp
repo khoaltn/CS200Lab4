@@ -283,6 +283,3 @@ void Maze::drawPath()
     //draw the new buffer contents
     glutSwapBuffers();
 }
-
-
-

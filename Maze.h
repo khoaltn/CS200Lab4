@@ -62,11 +62,8 @@ class Maze {
     
         DrawGraph *myGraph;							//graph holding adjacency info
         vector<vector<bool> > equivalenceClasses;	//stores equiv. classes
-        int *whichClass;				  //stores characteristic of each class
         stack<int> dfS;								//stack holds path thru maze
-
-		// Khoa's stuff
-		int classRep[NUM_CELLS_PER_SIDE * NUM_CELLS_PER_SIDE];
+		int classRep[NUM_CELLS_PER_SIDE * NUM_CELLS_PER_SIDE]; // stores class representatives
 };
 
 #endif /* Maze_h */
